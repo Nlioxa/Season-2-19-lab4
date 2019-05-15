@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "removeComments": true,
+    "outDir": "js",
+    "sourceMap": true,
+    "outFile": "ts/script.js"
+  },
+  "compileOnSave": true,
+  "exclude": [
+    "node_modules"
+  ]
+}
