@@ -1,11 +1,10 @@
 
-//Перечисление доступных цветов
-enum Color { Black = "Чёрный", Gray = "Серый", Pink = "Розовый" }
+enum Color { Black = "Чорний", Gray = "Сірий", Pink = "Рожевий" }
 
 interface Shoes {
-    dimension: number; //размер
-    color: Color; //цвет
-    quantity: number; //количество
+    dimension: number; 
+    color: Color;
+    quantity: number;
 }
 
 class Product {
@@ -18,13 +17,11 @@ class Product {
         public inStock: number
     ) { }
 
-    //Добавление карточки в строку
     protected static Embed(obj: any) {
         let prods = document.getElementById('rowts');
         prods.appendChild(obj);
     }
 
-    //Инициализация карточки
     Init(): any {
         let prodCardContainer = document.createElement("div");
         prodCardContainer.setAttribute("class", "col-md-6 col-xl-4 p-1");
@@ -98,7 +95,6 @@ class Product {
         return prodCardContainer;
     }
 
-    //Определение есть ли товар в наличии
     IsAvailable(): boolean {
         return (this.inStock > 0);
     }
@@ -116,11 +112,10 @@ class Product {
 }
 
 
-//Класс со сложными особенностями
 class FeltBoots extends Product {
 
-    hasBigSizes: boolean = false; //Есть большие размеры
-    colors: string[] = []; //Цвета которые есть
+    hasBigSizes: boolean = false;
+    colors: string[] = [];
 
     constructor(
         protected id: number,
@@ -138,13 +133,11 @@ class FeltBoots extends Product {
     Init() {
         let product = super.Init();
 
-        //Если есть большие размеры, то добавляем информацию об этом в карточку
         if (this.hasBigSizes) {
             let info = "Есть большие размеры";
             Product.AddInfo(product, info);
         }
 
-        //Если есть информация о цвете, то добавляем её в карточку
         if (this.colors.length > 0) {
             let info = "Есть цвета: ";
             this.colors.forEach(color => {
@@ -156,17 +149,14 @@ class FeltBoots extends Product {
         Product.Embed(product);
     }
 
-    //Вычисление сложных особенностей
     CalculateFlags() {
         if (this.list != null) {
-            //Поиск больших размеров
             this.list.forEach(element => {
                 if (this.hasBigSize(element)) {
                     this.hasBigSizes = true;
                     return;
                 }
             })
-            //Поиск доступных цветов
             this.list.forEach(shoe => {
                 if (!this.hasColor(shoe.color)) {
                     this.colors.push(shoe.color);
@@ -195,7 +185,6 @@ class FeltBoots extends Product {
     }
 }
 
-//Класс с группировкой
 class Headphone extends Product {
     constructor(
         protected id: number,
@@ -349,7 +338,6 @@ function inRange(value: number, min: number, max: number) {
 }
 
 function CheckAdditives(checked: boolean) {
-    // reset products list
     document.getElementById('rowts').innerHTML = "";
 
     this.prodList.forEach(product => {
@@ -437,20 +425,18 @@ function CheckWireless(checked: boolean) {
 }
 
 interface BasketRecord {
-    id: number; //id товара
-    quantity: number; //Его количество
+    id: number;
+    quantity: number;
 }
 
 class Basket {
-    private list: Map<number, number> = new Map(); //Список товаров в корзине
+    private list: Map<number, number> = new Map();
 
     constructor() { }
 
-    //Добавить товар в корзину. Возвращает результат операции
     Add(prodIndex: number) {
         let enteredQuantity = +(<HTMLInputElement>document.getElementById('inputquantity')).value;
 
-        //Проверка введенного количества товара. Если ввели ерунду, то выводится сообщение об ошибке. Иначе товар добавляется в корзину
         if (isNaN(enteredQuantity) || enteredQuantity == 0 || prodList[prodIndex].inStock < enteredQuantity) {
             if (prodList[prodIndex].inStock < enteredQuantity) {
                 document.getElementById('modlalMessag').innerHTML = "Столько на складе нет";
@@ -476,7 +462,6 @@ class Basket {
         }
     }
 
-    //Пересчитать товары в корзине
     CalculateBasket() {
         if (this.list.size > 0) {
             let total: number = 0;
@@ -492,14 +477,12 @@ class Basket {
     }
 }
 
-//Действие на кнопке "добавить в корзину"
 function myByBtn(val: any) {
     if (basket.Add(val)) {
         $('#buyModal').modal('hide');
     }
 }
 
-//Действие на кнопке "купить"
 function AddToBasket(id: any, inStock: any) {
     console.log(inStock);
     document.getElementById('modlalBtn').setAttribute("value", id);
@@ -509,9 +492,7 @@ function AddToBasket(id: any, inStock: any) {
 
 let firstTime: boolean = true;
 
-//Инициализация корзины
 let basket: Basket = new Basket();
-//Список продуктов
 let prodList: Product[] = [
     new Headphone(0, "Наушники фирмы1", 816, "Прекрасные наушники! Сама английская королева слушает жесткий металл через такие же!", 4, true),
     new FeltBoots(1, "Валенки2", 91.2, "Хороший выбор! В них тепло, хорошо. Обувь многосезонная - лето, осень, зима, весна.", 6,
